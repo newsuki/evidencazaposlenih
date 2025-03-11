@@ -15,6 +15,7 @@ public class DatabaseEditForm extends JFrame {
     private JTextField jobTitleTextField;
     private JTextField oddelekTextField;
     private JButton deleteEmployeeButton;
+    private JButton updateJobTitleButton;
 
     private MainForm mainForm;
 
@@ -33,6 +34,10 @@ public class DatabaseEditForm extends JFrame {
 
         deleteEmployeeButton.addActionListener(e -> {
             deleteEmployee();
+        });
+
+        updateJobTitleButton.addActionListener(e -> {
+            updateJobTitle();
         });
     }
 
@@ -80,6 +85,30 @@ public class DatabaseEditForm extends JFrame {
 
             statement.setString(1, email);
             statement.setInt(2, phone);
+
+            statement.executeQuery();
+
+            mainForm.loadTableData("zaposleni");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading data: " + e.getMessage());
+        }
+    }
+
+    private void updateJobTitle() {
+        String jobTitle = jobTitleTextField.getText();
+        String email = emailTextField.getText();
+        int phone = Integer.parseInt(phoneTextField.getText());
+
+        String query = "SELECT posodobi_naziv(?, ?, ?);";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, jobTitle);
+            statement.setString(2, email);
+            statement.setInt(3, phone);
 
             statement.executeQuery();
 
