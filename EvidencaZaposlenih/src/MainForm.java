@@ -14,6 +14,9 @@ public class MainForm extends JFrame {
     private JButton outputButton;
     private JTable dataTable;
     private JPanel mainPanel;
+    private JButton settingsButton;
+    private JButton editButton;
+    private JButton exitButton;
 
     public MainForm() {
         setTitle("Database Viewer");
@@ -28,9 +31,19 @@ public class MainForm extends JFrame {
                 loadTableData((String) tableComboBox.getSelectedItem());
             }
         });
+
+        editButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DatabaseEditForm editDatabaseForm = new DatabaseEditForm(MainForm.this);
+                editDatabaseForm.setVisible(true);
+            }
+        });
+
+        exitButton.addActionListener(e -> System.exit(0));
     }
 
-    private void loadTableData(String tableName) {
+    public void loadTableData(String tableName) {
         DefaultTableModel model = new DefaultTableModel();
         dataTable.setModel(model);
 

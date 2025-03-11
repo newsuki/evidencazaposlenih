@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc2a8457-8660-43c5-9735-72022a4996c0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/DatabaseEditForm.form" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DatabaseEditForm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/EvidencaZaposlenih/DatabaseConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/EvidencaZaposlenih/DatabaseConnection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/EvidencaZaposlenih/MainForm$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/EvidencaZaposlenih/MainForm$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/EvidencaZaposlenih/MainForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/EvidencaZaposlenih/MainForm.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainForm.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainForm.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainForm.java" afterDir="false" />
     </list>
@@ -102,7 +106,7 @@
       <workItem from="1741629362008" duration="252000" />
       <workItem from="1741629967452" duration="377000" />
       <workItem from="1741630557467" duration="2075000" />
-      <workItem from="1741714230250" duration="1918000" />
+      <workItem from="1741714230250" duration="9257000" />
     </task>
     <servers />
   </component>
