@@ -3,23 +3,67 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
 
-public class MainForm {
+public class MainForm extends JFrame {
 
-    public static void main(String[] args) {
-        String query = "SELECT * FROM kraji";
-        try(Connection connection = DatabaseConnection.getConnection()){
-            try (PreparedStatement statement = connection.prepareStatement(query);
-                 ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    int id = resultSet.getInt("id");
-                    String name = resultSet.getString("ime");
-                    int posta = resultSet.getInt("posta");
-                    System.out.println("ID: " + id + ", Ime: " + name + ", Posta: " + posta);
-                }
+    private JComboBox<String> tableComboBox;
+    private JButton outputButton;
+    private JTable dataTable;
+    private JPanel mainPanel;
+
+    public MainForm() {
+        setTitle("Database Viewer");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(600, 400);
+        setContentPane(mainPanel);
+        setLocationRelativeTo(null); // Center window
+
+        outputButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadTableData((String) tableComboBox.getSelectedItem());
             }
+        });
+    }
+
+    private void loadTableData(String tableName) {
+        DefaultTableModel model = new DefaultTableModel();
+        dataTable.setModel(model);
+
+        String query = "SELECT * FROM " + tableName;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            // Get column names
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            for (int i = 1; i <= columnCount; i++) {
+                model.addColumn(metaData.getColumnName(i));
+            }
+
+            // Add rows
+            while (resultSet.next()) {
+                Object[] row = new Object[columnCount];
+                for (int i = 0; i < columnCount; i++) {
+                    row[i] = resultSet.getObject(i + 1);
+                }
+                model.addRow(row);
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading data: " + e.getMessage());
         }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new MainForm().setVisible(true));
     }
 }

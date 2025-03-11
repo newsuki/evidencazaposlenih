@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.lang.System;
 
 public class DatabaseConnection {
-    private static final Dotenv dotenv = Dotenv.configure().load(); // Auto-detect .env
+    private static final Dotenv dotenv = Dotenv.configure().load();
 
     private static final String URL = dotenv.get("DB_URL");
     private static final String USER = dotenv.get("DB_USER");
@@ -13,11 +13,7 @@ public class DatabaseConnection {
 
     public static Connection getConnection() throws SQLException {
         try {
-            System.out.println("URL: " + URL);
-            System.out.println("USER: " + USER);
-            System.out.println("PASSWORD: " + PASSWORD);
-
-            Class.forName("org.postgresql.Driver"); // Use PostgreSQL driver
+            Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
             System.err.println("PostgreSQL JDBC Driver not found.");
             e.printStackTrace();
