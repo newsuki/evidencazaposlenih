@@ -1,5 +1,7 @@
 import javax.swing.*;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 public class DatabaseEditForm extends JFrame {
 
@@ -11,6 +13,8 @@ public class DatabaseEditForm extends JFrame {
     private JTextField phoneTextField;
     private JTextField locationTextField;
     private JTextField jobTitleTextField;
+    private JTextField oddelekTextField;
+    private JButton deleteEmployeeButton;
 
     private MainForm mainForm;
 
@@ -26,21 +30,36 @@ public class DatabaseEditForm extends JFrame {
         addEmployeeButton.addActionListener(e -> {
             addEmployee();
         });
+
+        deleteEmployeeButton.addActionListener(e -> {
+            deleteEmployee();
+        });
     }
 
     private void addEmployee() {
         String firstName = firstNameTextField.getText();
         String lastName = lastNameTextField.getText();
         String email = emailTextField.getText();
-        String phone = phoneTextField.getText();
         String location = locationTextField.getText();
         String jobTitle = jobTitleTextField.getText();
+        String oddelek = oddelekTextField.getText();
 
-        String query = "SELECT dodaj_zaposlenega(" + firstName + ", " + lastName + ", " + email + ", " + phone + ", " + location + ", " + jobTitle + ");";
+        int phone = Integer.parseInt(phoneTextField.getText());
+
+        String query = "SELECT dodaj_zaposlenega(?, ?, ?, ?, ?, ?, ?);";
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.executeUpdate();
+
+            statement.setString(1, firstName);
+            statement.setString(2, lastName);
+            statement.setString(3, email);
+            statement.setInt(4, phone);
+            statement.setString(5, location);
+            statement.setString(6, jobTitle);
+            statement.setString(7, oddelek);
+
+            statement.executeQuery();
 
             mainForm.loadTableData("zaposleni");
 
@@ -48,6 +67,27 @@ public class DatabaseEditForm extends JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error loading data: " + e.getMessage());
         }
+    }
 
+    private void deleteEmployee() {
+        String email = emailTextField.getText();
+        int phone = Integer.parseInt(phoneTextField.getText());
+
+        String query = "SELECT izbrisi_zaposlenega(?, ?);";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, email);
+            statement.setInt(2, phone);
+
+            statement.executeQuery();
+
+            mainForm.loadTableData("zaposleni");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading data: " + e.getMessage());
+        }
     }
 }

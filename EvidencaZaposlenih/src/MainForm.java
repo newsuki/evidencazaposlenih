@@ -19,7 +19,7 @@ public class MainForm extends JFrame {
     private JButton exitButton;
 
     public MainForm() {
-        setTitle("Database Viewer");
+        setTitle("Evidenca zaposlenih baza");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
         setContentPane(mainPanel);
