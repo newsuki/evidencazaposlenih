@@ -1,2 +1,1 @@
-"# evidencazaposlenih" 
-"# Evidenca zaposlenih v podjetju - ADRIAN KARAHMETOVIĆ Aplikacija omogoča beleženje podatkov o zaposlenih, vključno z imenom, priimkom, delovnim mestom, datumom zaposlitve, plačo in kontakti."
+Yo
